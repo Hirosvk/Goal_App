@@ -1,3 +1,4 @@
+require "shoulda-matchers"
 
 RSpec.configure do |config|
 
@@ -34,5 +35,19 @@ RSpec.configure do |config|
     fill_in("Password", with: user.password )
     click_on("Sign Up")
   end
+
+  def logout
+    visit users_url
+    click_on("Log out")
+  end
+
+  def add_goal_for(user, title)
+    visit new_user_goal_url(user)
+    fill_in "Title", with: title
+    choose "Private"
+    fill_in "Completion", with: 20
+    click_on "Add Goal"
+  end
+
 
 end

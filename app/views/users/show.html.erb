@@ -1,0 +1,5 @@
+<h1><%= "#{@user.username}'s Goals!"%></h1>
+
+<%= render @goals %>
+
+<%= link_to "New Goal", new_user_goal_url(@user) %>

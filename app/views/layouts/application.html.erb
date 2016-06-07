@@ -9,10 +9,13 @@
 <body>
   <header>
     <% if logged_in? %>
-      <p>
-        Hellow, <%= current_user.username %> !
-      </p>
+      <p>Hellow, <%= current_user.username %> !</p>
+      <%= button_to "Log out", session_url, method: :delete %>
+    <% else %>
+      <%= link_to "Sing Up", new_user_url%><br>
+      <%= link_to "Sign In", new_session_url %>
     <% end %>
+  <hr>
   </header>
 
 <%= yield %>

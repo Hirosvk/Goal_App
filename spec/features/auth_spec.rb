@@ -3,7 +3,7 @@ require 'rails_helper'
 
 feature "the signup process" do
 
-  it "has a new user page" do
+  scenario "has a new user page" do
     visit new_user_url
     # save_and_open_page
     expect(page).to have_content('Sign Up')
@@ -13,30 +13,38 @@ feature "the signup process" do
     let(:user) { FactoryGirl.build(:user) }
     before { signup(user) }
 
-    it "shows username on the homepage after signup" do
-      save_and_open_page
+    scenario "shows username on the homepage after signup" do
       expect(page).to have_content(user.username)
     end
-
   end
-
 end
 
 feature "logging in" do
   let(:user) { FactoryGirl.create(:user) }
   before { login(user) }
 
-  it "shows username on the homepage after login" do
+  scenario "shows username on the homepage after login" do
     # save_and_open_page
     expect(page).to have_content(user.username)
   end
-
 end
 
 feature "logging out" do
+  let(:user) { FactoryGirl.create(:user) }
+  before do
+    login(user)
+    logout
+  end
 
-  it "begins with logged out state"
+  scenario "begins with logged out state" do
+    visit users_url
+    expect(page).to have_content('Log in')
+  end
 
-  it "doesn't show username on the homepage after logout"
+
+  scenario "doesn't show username on the homepage after logout" do
+    visit users_url
+    expect(page).not_to have_content(user.username)
+  end
 
 end
